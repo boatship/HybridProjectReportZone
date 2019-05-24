@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import {
   Image,
   Platform,
@@ -11,64 +11,40 @@ import {
 import { WebBrowser } from 'expo';
 import { Constants, MapView, Location, Permissions } from 'expo';
 
-import {
-  createStackNavigator,
-  createMaterialTopTabNavigator,
-  createAppContainer
-} from "react-navigation";
-
 import { MonoText } from '../components/StyledText';
 
-import AccidentsMap from "./AccidentsMap";
-import NewsMap from "./NewsMap";
+export default class News extends React.Component {
+  state = {
+    
+  };
 
-const TabScreen = createMaterialTopTabNavigator(
-  {
-    "News Map": { screen: NewsMap },
-    "Accidents Map": { screen: AccidentsMap },
-  },
-  {
-    tabBarPosition: "top",
-    swipeEnabled: true,
-    animationEnabled: true,
-    tabBarOptions: {
-      activeTintColor: "#45B4FF",
-      inactiveTintColor: "#909090",
-      style: {
-        backgroundColor: "#FFFFFF"
-      },
-      labelStyle: {
-        textAlign: "center"
-      },
-      indicatorStyle: {
-        borderBottomColor: "#45B4FF",
-        borderBottomWidth: 2
-      }
-    }
+  static navigationOptions = {
+    header: null
+  };
+
+  
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <ScrollView>
+        <Text style={styles.paragraph}>
+          News
+        </Text>
+      </ScrollView>
+
+
+
+      </View>
+    );
   }
-);
 
-const HomeScreen = createStackNavigator({
-  TabScreen: {
-    screen: TabScreen,
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: "#FFFFFF",
-        borderBottomColor: "transparent",
-        borderBottomWidth: 0,
-        shadowColor: "transparent",
-        elevation: 0,
-        fontWeight: 'normal',
-      },
-      headerTintColor: "black",
-      title: "MAP",
 
-      
-    }
-  }
-});
 
-export default createAppContainer(HomeScreen);
+
+
+
+}
 
 const styles = StyleSheet.create({
   container: {

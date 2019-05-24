@@ -3,8 +3,8 @@ import { View, Text } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator, createAppContainer , createBottomTabNavigator } from 'react-navigation';
 
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import MapScreen from '../screens/MapScreen';
+import Hub from '../screens/Hub';
 import SettingsScreen from '../screens/SettingsScreen';
 
 // const AppNavigator = createStackNavigator(
@@ -41,11 +41,12 @@ import SettingsScreen from '../screens/SettingsScreen';
 
 const TabNavigator = createBottomTabNavigator(
   {
-    HOME: {
-      screen: HomeScreen
+    
+    NEWS: {
+      screen: Hub
     },
-    LINKS: {
-      screen: LinksScreen
+    MAP: {
+      screen: MapScreen
     },
     SETTINGS: {
       screen: SettingsScreen
@@ -57,9 +58,9 @@ const TabNavigator = createBottomTabNavigator(
         const { routeName } = navigation.state;
         let IconComponent = Ionicons;
         let iconName;
-        if (routeName === 'HOME') {
+        if (routeName === 'MAP') {
           iconName = `md-compass`;
-        } else if (routeName === 'LINKS') {
+        } else if (routeName === 'NEWS') {
           iconName = `md-heart`;
         } else if (routeName === 'SETTINGS') {
           iconName = `md-time`;
