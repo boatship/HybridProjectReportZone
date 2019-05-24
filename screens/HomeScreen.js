@@ -11,93 +11,64 @@ import {
 import { WebBrowser } from 'expo';
 import { Constants, MapView, Location, Permissions } from 'expo';
 
+import {
+  createStackNavigator,
+  createMaterialTopTabNavigator,
+  createAppContainer
+} from "react-navigation";
+
 import { MonoText } from '../components/StyledText';
 
-export default class HomeScreen extends React.Component {
-  state = {
-    mapRegion: null,
-    hasLocationPermissions: false,
-    locationResult: null
-  };
-  
-  static navigationOptions = {
-    header:null
-  };
+import AccidentsMap from "./AccidentsMap";
+import NewsMap from "./NewsMap";
 
-  componentDidMount() {
-    this._getLocationAsync();
+const TabScreen = createMaterialTopTabNavigator(
+  {
+    "News Map": { screen: NewsMap },
+    "Accidents Map": { screen: AccidentsMap },
+  },
+  {
+    tabBarPosition: "top",
+    swipeEnabled: true,
+    animationEnabled: true,
+    tabBarOptions: {
+      activeTintColor: "#45B4FF",
+      inactiveTintColor: "#909090",
+      style: {
+        backgroundColor: "#FFFFFF"
+      },
+      labelStyle: {
+        textAlign: "center"
+      },
+      indicatorStyle: {
+        borderBottomColor: "#45B4FF",
+        borderBottomWidth: 2
+      }
+    }
   }
+);
 
-  _handleMapRegionChange = mapRegion => {
-    console.log(mapRegion);
-    this.setState({ mapRegion });
-  };
+const HomeScreen = createStackNavigator({
+  TabScreen: {
+    screen: TabScreen,
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: "#FFFFFF",
+        borderBottomColor: "transparent",
+        borderBottomWidth: 0,
+        shadowColor: "transparent",
+        elevation: 0,
+        fontWeight: 'normal',
+      },
+      headerTintColor: "black",
+      title: "MAP",
 
-  _getLocationAsync = async () => {
-   let { status } = await Permissions.askAsync(Permissions.LOCATION);
-   if (status !== 'granted') {
-     this.setState({
-       locationResult: 'Permission to access location was denied',
-     });
-   } else {
-     this.setState({ hasLocationPermissions: true });
-   }
-
-   let location = await Location.getCurrentPositionAsync({});
-   this.setState({ locationResult: JSON.stringify(location),location });
-   
-   // Center the map on the location we just fetched.
-    this.setState({mapRegion: { latitude: location.coords.latitude, longitude: location.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }});
-  };
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.paragraph}>
-          Pan, zoom, and tap on the map!
-        </Text>
-        
-        {
-          this.state.locationResult === null ?
-          <Text>Finding your current location...</Text> :
-          this.state.hasLocationPermissions === false ?
-            <Text>Location permissions are not granted.</Text> :
-            this.state.mapRegion === null ?
-            <Text>Map region doesn't exist.</Text> :
-            <MapView
-              style={{ alignSelf: 'stretch', height: 400 }}
-              initialRegion={this.state.mapRegion}
-              onRegionChange={this._handleMapRegionChange}
-            >
-            <MapView.Marker
-      coordinate={this.state.location.coords}
-      title="My Marker"
-      description="Some description"
-    />
-    <MapView.Marker
-      coordinate= {{ latitude: 13.647312, longitude: 100.503083}}
-      title="My Marker"
-      description="Some description"
-    />
-            </MapView>
-
-        }
-        
-        <Text>
-          Location: {this.state.locationResult}
-        </Text>
-
-        
-      </View>
-    );
+      
+    }
   }
+});
 
-
-
-  
-
-  
-}
+export default createAppContainer(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {
