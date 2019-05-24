@@ -24,6 +24,12 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.hybrid.reportzone",
+      "config": {
+        "googleMaps": { "apiKey": "AIzaSyDlHJAu8ZOSXaJ5rhSB8PxbOQrHiJSUfh4" }   
+     }
     }
   }
 }
