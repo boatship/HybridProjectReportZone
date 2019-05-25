@@ -61,8 +61,7 @@ const Hub = createStackNavigator({
         fontWeight: 'normal',
       },
       headerTintColor: "black",
-      title: "HUB",
-
+      headerTitle: (<Image style={{marginLeft:'auto',marginRight:'auto',alignContent: 'center',width:180,height:40}} source={require('../static/large_reportzone.png')}></Image>),
       
     }
   }

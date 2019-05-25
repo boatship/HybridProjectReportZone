@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
+import { Header, ListItem } from "react-native-elements";
 import { Constants, MapView, Location, Permissions } from 'expo';
 
 import { MonoText } from '../components/StyledText';
@@ -20,9 +21,7 @@ export default class AccidentsMap extends React.Component {
     locationResult: null
   };
 
-  static navigationOptions = {
-    header: null
-  };
+  
 
   componentDidMount() {
     this._getLocationAsync();
@@ -57,7 +56,20 @@ export default class AccidentsMap extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Header
+          placement="center"
+          backgroundColor="white"
 
+          centerComponent={<Image style={{marginLeft:'auto',marginRight:'auto',alignContent: 'center',width:180,height:40}} source={require('../static/large_reportzone.png')}></Image>}
+
+          containerStyle={{
+            elevation: 4,
+            shadowOffset: { width: 5, height: 5 },
+            shadowColor: "grey",
+            shadowOpacity: 0.5,
+            shadowRadius: 10
+          }}
+        />
         {
           this.state.locationResult === null ?
             <Text>Finding your current location...</Text> :
@@ -68,7 +80,7 @@ export default class AccidentsMap extends React.Component {
                 <MapView
                   style={{ alignSelf: 'stretch', height: '100%' }}
                   initialRegion={this.state.mapRegion}
-                  
+
                 >
                   <MapView.Marker
                     coordinate={this.state.location.coords}
