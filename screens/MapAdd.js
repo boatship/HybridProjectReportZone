@@ -5,9 +5,11 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  Button,
   TouchableOpacity,
   View,
 } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import { WebBrowser } from 'expo';
 import { Header, ListItem } from "react-native-elements";
 import { Constants, MapView, Location, Permissions } from 'expo';
@@ -25,6 +27,13 @@ export default class MapAdd extends React.Component {
   };
 
 
+  componentWillMount(){
+    this.props.navigation.setParams({ addAccident: this._addAccident });
+  }
+
+  _addAccident = () => {
+    this.props.navigation.navigate("AddAccident", {coordinate: this.state.mapRegion});
+  }
 
   componentDidMount() {
     this._getLocationAsync();
@@ -64,7 +73,7 @@ export default class MapAdd extends React.Component {
           backgroundColor="white"
 
           centerComponent={<Image style={{ marginLeft: 'auto', marginRight: 'auto', alignContent: 'center', width: 180, height: 40 }} source={require('../static/large_reportzone.png')}></Image>}
-
+          rightComponent={<Button title="Report" onPress={this.props.navigation.getParam('addAccident')} />}
           containerStyle={{
             elevation: 4,
             shadowOffset: { width: 5, height: 5 },
@@ -86,8 +95,13 @@ export default class MapAdd extends React.Component {
                   // onRegionChange={this._handleMapRegionChange.bind(this)}
                   onRegionChangeComplete={this._handleMapRegionChange.bind(this)}
                 >
-                  
 
+                  <MapView.Marker
+                    coordinate={this.state.myMarker}
+                    title="My Marker"
+                    description="Some description"
+                    opacity={0.0}
+                  />
                   <Image style={styles.marker} source={marker} />
 
                 </MapView>

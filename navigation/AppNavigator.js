@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { createStackNavigator, createAppContainer , createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation';
 
 import MapScreen from '../screens/MapScreen';
 import Hub from '../screens/Hub';
 import MapAdd from '../screens/MapAdd';
 import AccidentsDetail from '../screens/AccidentDetail';
 import NewsDetail from '../screens/NewsDetail';
+import AddAccident from '../screens/AddAccident';
 
 // const AppNavigator = createStackNavigator(
 //   {
@@ -42,20 +43,26 @@ import NewsDetail from '../screens/NewsDetail';
 // });
 
 const HubStacking = createStackNavigator({
-  Hub : Hub,
-  AccidentsDetail : AccidentsDetail,
-  NewsDetail : NewsDetail,
+  Hub: Hub,
+  AccidentsDetail: AccidentsDetail,
+  NewsDetail: NewsDetail,
 },
-{
-  headerMode: 'none',
-  navigationOptions: {
+  {
+    headerMode: 'none',
+    navigationOptions: {
       headerVisible: false,
-  }
-});
+    }
+  });
+
+const MapAddStacking = createStackNavigator({
+  MapAdd: { screen: MapAdd, navigationOptions: { header: null } },
+  AddAccident: AddAccident,
+},
+);
 
 const TabNavigator = createBottomTabNavigator(
   {
-    
+
     NEWS: {
       screen: HubStacking
     },
@@ -63,7 +70,7 @@ const TabNavigator = createBottomTabNavigator(
       screen: MapScreen
     },
     SETTINGS: {
-      screen: MapAdd
+      screen: MapAddStacking
     },
   },
   {

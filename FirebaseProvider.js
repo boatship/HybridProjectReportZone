@@ -23,7 +23,7 @@ function listenerForIncidents(incRef, callback) {
 }
 function addIncident(incRef, incData) {
   console.log("add an expense");
-  console.dir(incData);
+  console.log(incData)
   incRef.push(incData);
 }
 function updateIncident(incRef, key, incData) {
