@@ -19,13 +19,13 @@ import {
 
 import { MonoText } from '../components/StyledText';
 
-import News from "./News";
-import Accicents from "./Accidents";
+import NewsList from "./NewsList";
+import AccicentsList from "./AccidentsList";
 
 const TabScreen = createMaterialTopTabNavigator(
   {
-    "News": { screen: News },
-    "Accidents": { screen: Accicents },
+    "News": { screen: NewsList },
+    "Accidents": { screen: AccicentsList },
   },
   {
     tabBarPosition: "top",

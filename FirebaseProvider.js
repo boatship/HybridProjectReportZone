@@ -1,46 +1,41 @@
 import * as firebase from "firebase";
 const config = {
-  apiKey: "AIzaSyDit2GzkXnQ3PgxrU73aqZpLzz5MQLzJMA",
-  authDomain: "hybridprojectreportzone.firebaseapp.com",
-  databaseURL: "https://hybridprojectreportzone.firebaseio.com",
-  projectId: "hybridprojectreportzone",
-  storageBucket: "hybridprojectreportzone.appspot.com",
-  messagingSenderId: "1079147380244",
-  appId: "1:1079147380244:web:a536d468f6473224"
+  apiKey: "AIzaSyC8oK8soTs6uzZk2TdSePjGjudcn4SBizs",
+  authDomain: "reportzone.firebaseapp.com",
+  databaseURL: "https://reportzone.firebaseio.com",
+  projectId: "reportzone",
+  storageBucket: "reportzone.appspot.com",
+  messagingSenderId: "274456498797",
+  appId: "1:274456498797:web:7d72b4547d4581e0"
 };
 const firebaseApp = firebase.initializeApp(config);
 
-function getExpenseRef(node) {
-  console.log("getExpenseRef called");
+function getIncidentRef(node) {
+  console.log("getIncidentRef called");
   return firebaseApp.database().ref(node);
 }
 
-function getNewsRef(node) {
-    console.log("getExpenseRef called");
-    return firebaseApp.database().ref(node);
-  }
-
-function listenerForExpenses(expRef, callback) {
+function listenerForIncidents(incRef, callback) {
   //return expRef.orderByChild('expdate').on('value',(snap)=>{callback(snap)}) ;
-  return expRef.on("value", snap => {
+  return incRef.on("value", snap => {
     callback(snap);
   });
 }
-function addExpense(expRef, expData) {
+function addIncident(incRef, incData) {
   console.log("add an expense");
-  console.dir(expData);
-  expRef.push(expData);
+  console.dir(incData);
+  incRef.push(incData);
 }
-function updateExpense(expRef, key, expData) {
-  expRef.child(key).update(expData);
+function updateIncident(incRef, key, incData) {
+  incRef.child(key).update(incData);
 }
-function getExpenseByKey(expRef, key) {
-  return expRef.child(key).once("value");
+function getIncidentByKey(incRef, key) {
+  return incRef.child(key).once("value");
 }
 export default {
-  getExpenseRef,
-  listenerForExpenses,
-  addExpense,
-  updateExpense,
-  getExpenseByKey
+  getIncidentRef,
+  listenerForIncidents,
+  addIncident,
+  updateIncident,
+  getIncidentByKey
 };

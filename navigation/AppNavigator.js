@@ -6,6 +6,8 @@ import { createStackNavigator, createAppContainer , createBottomTabNavigator } f
 import MapScreen from '../screens/MapScreen';
 import Hub from '../screens/Hub';
 import SettingsScreen from '../screens/SettingsScreen';
+import AccidentsDetail from '../screens/AccidentDetail';
+import NewsDetail from '../screens/NewsDetail';
 
 // const AppNavigator = createStackNavigator(
 //   {
@@ -39,11 +41,23 @@ import SettingsScreen from '../screens/SettingsScreen';
 //   ManageAccount : ManageAccount
 // });
 
+const HubStacking = createStackNavigator({
+  Hub : Hub,
+  AccidentsDetail : AccidentsDetail,
+  NewsDetail : NewsDetail,
+},
+{
+  headerMode: 'none',
+  navigationOptions: {
+      headerVisible: false,
+  }
+});
+
 const TabNavigator = createBottomTabNavigator(
   {
     
     NEWS: {
-      screen: Hub
+      screen: HubStacking
     },
     MAP: {
       screen: MapScreen

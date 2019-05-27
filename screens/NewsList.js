@@ -7,34 +7,84 @@ import {
   Text,
   TouchableOpacity,
   View,
+  FlatList
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import { Constants, MapView, Location, Permissions } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
-export default class News extends React.Component {
+import NewsItem from './NewsItem'
+import FBProivder from '../FirebaseProvider';
+
+const extractKey = ({ inckey }) => inckey
+
+export default class NewsList extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = { news: [] };
-    this.expRef = FBProivder.getExpenseRef('news');
+    this.incRef = FBProivder.getIncidentRef('news');
   };
 
   static navigationOptions = {
     header: null
   };
 
-  
+  componentWillMount() {
+    // this.props.navigation.setParams({ addDetail: this._addDetail });
+    this.focusListener = this.props.navigation.addListener("didFocus", () => {
+      this._load();
+    })
+    this._load();
+  }
+
+  componentWillUnmount() {
+    this.focusListener.remove();
+  }
+
+  _load = () => {
+    FBProivder.listenerForIncidents(this.incRef, (snap) => {
+      var items = [];
+      snap.forEach((data) => {
+        items.push({
+          date: data.val().date,
+          title: data.val().title,
+          image: data.val().image,
+          detail: data.val().detail,
+          inckey: data.key
+        });
+      });
+
+      this.setState({ news: items });
+      console.log(items)
+    });
+  }
+
+  _view = (key) => {
+    console.log(key)
+    this.props.navigation.navigate("NewsDetail", {
+      inckey: key
+    });
+  }
+
+  renderItem = ({ item }) => {
+    return (
+      <NewsItem onPress={() => this._view(item.inckey)} item={item} />
+    )
+  }
 
   render() {
     return (
       <View style={styles.container}>
         <ScrollView>
-        <Text style={styles.paragraph}>
-          News
-        </Text>
-      </ScrollView>
+          <FlatList
+            style={styles.container}
+            data={this.state.news}
+            renderItem={this.renderItem}
+            keyExtractor={extractKey}
+          />
+        </ScrollView>
 
 
 
