@@ -14,14 +14,17 @@ import { Constants, MapView, Location, Permissions } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
-export default class MapScreen extends React.Component {
+import marker from '../assets/images/google-marker.png'
+
+export default class MapAdd extends React.Component {
   state = {
     mapRegion: null,
     hasLocationPermissions: false,
-    locationResult: null
+    locationResult: null,
+    myMarker: null
   };
 
-  
+
 
   componentDidMount() {
     this._getLocationAsync();
@@ -29,7 +32,7 @@ export default class MapScreen extends React.Component {
 
   _handleMapRegionChange = mapRegion => {
     console.log(mapRegion);
-    this.setState({ mapRegion });
+    this.setState({ myMarker: mapRegion });
   };
 
   _getLocationAsync = async () => {
@@ -46,7 +49,7 @@ export default class MapScreen extends React.Component {
     this.setState({ locationResult: JSON.stringify(location), location });
 
     // Center the map on the location we just fetched.
-    this.setState({ mapRegion: { latitude: location.coords.latitude, longitude: location.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 } });
+    this.setState({ mapRegion: { latitude: location.coords.latitude, longitude: location.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 }, myMarker: { latitude: location.coords.latitude, longitude: location.coords.longitude, latitudeDelta: 0.0922, longitudeDelta: 0.0421 } });
   };
 
   componentWillUnmount() {
@@ -60,7 +63,7 @@ export default class MapScreen extends React.Component {
           placement="center"
           backgroundColor="white"
 
-          centerComponent={<Image style={{marginLeft:'auto',marginRight:'auto',alignContent: 'center',width:180,height:40}} source={require('../static/large_reportzone.png')}></Image>}
+          centerComponent={<Image style={{ marginLeft: 'auto', marginRight: 'auto', alignContent: 'center', width: 180, height: 40 }} source={require('../static/large_reportzone.png')}></Image>}
 
           containerStyle={{
             elevation: 4,
@@ -78,20 +81,15 @@ export default class MapScreen extends React.Component {
               this.state.mapRegion === null ?
                 <Text>Map region doesn't exist.</Text> :
                 <MapView
-                  style={{ alignSelf: 'stretch', height: '100%' }}
+                  style={{ alignSelf: 'stretch', height: '100%', zIndex: 100 }}
                   initialRegion={this.state.mapRegion}
-
+                  // onRegionChange={this._handleMapRegionChange.bind(this)}
+                  onRegionChangeComplete={this._handleMapRegionChange.bind(this)}
                 >
-                  <MapView.Marker
-                    coordinate={this.state.location.coords}
-                    title="My Marker"
-                    description="Some description"
-                  />
-                  <MapView.Marker
-                    coordinate={{ latitude: 13.647312, longitude: 100.503083 }}
-                    title="My Marker"
-                    description="Some description"
-                  />
+                  
+
+                  <Image style={styles.marker} source={marker} />
+
                 </MapView>
 
         }
@@ -114,4 +112,34 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  markerFixed: {
+
+    position: 'absolute',
+
+    margin: 'auto',
+    // marginright: -27,
+    // marginBottom: -45,
+    zIndex: 101
+  },
+  marker: {
+    height: 45,
+    width: 27,
+    left: '46.5%',
+    position: 'absolute',
+    top: '44%',
+    margin: 'auto',
+    // marginright: -27,
+    // marginBottom: -45,
+    zIndex: 101
+  },
 });
+
+{/* <MapView.Marker draggable
+  coordinate={this.state.myMarker}
+  onDragEnd={(e) => this.setState({ myMarker: e.nativeEvent.coordinate })}
+/> */}
+{/* <MapView.Marker
+  coordinate={this.state.myMarker}
+  title="My Marker"
+  description="Some description"
+/> */}

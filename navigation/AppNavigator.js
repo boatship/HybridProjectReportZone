@@ -5,7 +5,7 @@ import { createStackNavigator, createAppContainer , createBottomTabNavigator } f
 
 import MapScreen from '../screens/MapScreen';
 import Hub from '../screens/Hub';
-import SettingsScreen from '../screens/SettingsScreen';
+import MapAdd from '../screens/MapAdd';
 import AccidentsDetail from '../screens/AccidentDetail';
 import NewsDetail from '../screens/NewsDetail';
 
@@ -63,7 +63,7 @@ const TabNavigator = createBottomTabNavigator(
       screen: MapScreen
     },
     SETTINGS: {
-      screen: SettingsScreen
+      screen: MapAdd
     },
   },
   {

@@ -14,6 +14,7 @@ import { ActivityIndicator } from 'react-native';
 class NewsItem extends Component {
   render() {
     let { title, image, date, detail } = this.props.item;
+    
     return (
       <TouchableHighlight
         onPress={this.props.onPress}
@@ -21,7 +22,7 @@ class NewsItem extends Component {
         <View style={styles.row}>
           <View style={{ flex: 2 }}>
             <Image
-              source={{ uri: image }}
+              source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/reportzone.appspot.com/o/news%2F' + title + '.jpg?alt=media' }}
               style={{ width: 50, height: 50 }}
               PlaceholderContent={<ActivityIndicator />}
             />
