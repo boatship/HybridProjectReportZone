@@ -14,8 +14,11 @@ import { Constants, MapView, Location, Permissions } from 'expo';
 import { MonoText } from '../components/StyledText';
 
 export default class News extends React.Component {
-  state = {
-    
+  constructor(props) {
+    super(props)
+
+    this.state = { news: [] };
+    this.expRef = FBProivder.getExpenseRef('news');
   };
 
   static navigationOptions = {

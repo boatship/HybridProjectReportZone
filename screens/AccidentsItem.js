@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import moment from 'moment' ;
 
-class ExpenseItem extends Component {
+class AccidentsItem extends Component {
   render() {
     let { title, image,date,detail} = this.props.item;
     return (

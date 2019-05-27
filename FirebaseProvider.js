@@ -14,6 +14,12 @@ function getExpenseRef(node) {
   console.log("getExpenseRef called");
   return firebaseApp.database().ref(node);
 }
+
+function getNewsRef(node) {
+    console.log("getExpenseRef called");
+    return firebaseApp.database().ref(node);
+  }
+
 function listenerForExpenses(expRef, callback) {
   //return expRef.orderByChild('expdate').on('value',(snap)=>{callback(snap)}) ;
   return expRef.on("value", snap => {
