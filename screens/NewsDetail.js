@@ -21,7 +21,7 @@ class NewsDetail extends Component {
   }
 
   _load = key => {
-    FBProvider.getIncidentByKey(this.expRef, key).then(data => {
+    FBProvider.getIncidentByKey(this.incRef, key).then(data => {
       var dtparts = data.val().date.split("-");
       var tdate = new Date(dtparts[0], dtparts[1] - 1, dtparts[2]);
       var item = {
