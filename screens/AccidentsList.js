@@ -13,7 +13,7 @@ import { WebBrowser } from 'expo';
 import { Constants, MapView, Location, Permissions } from 'expo';
 import { MonoText } from '../components/StyledText';
 import AccidentsItem from './AccidentsItem'
-import FBProivder from '../FirebaseProvider';
+import FBProvider from '../FirebaseProvider';
 
 const extractKey = ({ inckey }) => inckey
 
@@ -22,7 +22,7 @@ export default class AccidentsList extends React.Component {
     super(props)
 
     this.state = { accidents: [] };
-    this.incRef = FBProivder.getIncidentRef('accidents');
+    this.incRef = FBProvider.getIncidentRef('accidents');
   };
 
   static navigationOptions = {
@@ -42,7 +42,7 @@ export default class AccidentsList extends React.Component {
   }
 
   _load = () => {
-    FBProivder.listenerForIncidents(this.incRef, (snap) => {
+    FBProvider.listenerForIncidents(this.incRef, (snap) => {
       var items = [];
       snap.forEach((data) => {
         items.push({
