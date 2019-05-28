@@ -26,6 +26,21 @@ class NewsDetail extends Component {
     this.incRef = FBProvider.getIncidentRef("news");
   }
 
+  static navigationOptions = {
+    //To set the header image and title for the current Screen
+    //Title
+    headerRight: <Image
+    style={{
+
+      right:'60%',
+      width: 180,
+      height: 40
+    }}
+    source={require("../static/large_reportzone.png")}
+  />,
+    //Image in Navigation Bar
+
+  };
 
   _load = key => {
     FBProvider.getIncidentByKey(this.incRef, key).then(data => {

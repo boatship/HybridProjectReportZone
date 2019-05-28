@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text,Icon } from 'react-native';
+import { View, Text } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation';
-
-import {Image} from 'react-native-elements'
 
 import MapScreen from '../screens/MapScreen';
 import Hub from '../screens/Hub';
@@ -46,21 +44,7 @@ import AddAccident from '../screens/AddAccident';
 
 const HubStacking = createStackNavigator({
   Hub: { screen: Hub, navigationOptions: { header: null } },
-  AccidentsDetail: {screen: AccidentsDetail, navigationOptions: {
-
-        headerCenter : (
-          <Image
-          style={{
-            marginLeft: "auto",
-            marginRight: "auto",
-            alignContent: "center",
-            width: 180,
-            height: 40
-          }}
-          source={require("../static/large_reportzone.png")}
-        />
-        ),
-}},
+  AccidentsDetail: AccidentsDetail,
   NewsDetail: NewsDetail,
 },
 );
