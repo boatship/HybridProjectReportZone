@@ -88,7 +88,8 @@ class AddAccident extends Component {
         title: ""
       },
       image: null,
-      uploading: false
+      uploading: false,
+      picname:""
     };
     this.incRef = FBProvider.getIncidentRef("accidents");
   }
@@ -124,9 +125,10 @@ class AddAccident extends Component {
       longitude: value.longitude,
       title: value.title
     });
+    this.setState({picname:value.title})
     // }
-    alert("Save");
-    this.props.navigation.goBack();
+    //alert("Save");
+    //this.props.navigation.goBack();
   };
 
   _load = (latitude, longitude) => {
@@ -167,17 +169,19 @@ class AddAccident extends Component {
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true
     });
-
+    this._saveAccident()
     this._handleImagePicked(pickerResult);
   };
   _handleImagePicked = async pickerResult => {
     try {
       this.setState({ uploading: true });
-
       if (!pickerResult.cancelled) {
-        uploadUrl = await uploadImageAsync(pickerResult.uri);
+        var namepic = this.state.image
+        console.log("Testttttttttt--------------"+namepic)
+        uploadUrl = await uploadImageAsync(pickerResult.uri,namepic);
         this.setState({ image: uploadUrl });
-        alert("Upload Complete");
+        alert("Save Upload Complete");
+        this.props.navigation.goBack();
       }
     } catch (e) {
       console.log(e);
@@ -199,14 +203,14 @@ class AddAccident extends Component {
         />
         <Button
           onPress={this._pickImage}
-          title="Pick an image from camera roll"
+          title="Upload image from camera roll"
         />
       </View>
     );
   }
 }
 //>>>>>>>>>>>>>>>>>>>>>>UploadPicture>>>>>>>>>>>>>>>>>>>>
-async function uploadImageAsync(uri) {
+async function uploadImageAsync(uri,tname) {
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {
@@ -220,11 +224,11 @@ async function uploadImageAsync(uri) {
     xhr.open("GET", uri, true);
     xhr.send(null);
   });
-
+  var rname = tname
   const ref = firebase
     .storage()
     .ref()
-    .child("news/" + uuid.v4());
+    .child("news/" + rname);
   const snapshot = await ref.put(blob);
 
   // We're done with the blob, close and release it
