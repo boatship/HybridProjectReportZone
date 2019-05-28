@@ -13,28 +13,32 @@ import { Header, ListItem } from "react-native-elements";
 import { Constants, MapView, Location, Permissions } from 'expo';
 
 import { MonoText } from '../components/StyledText';
+import FBProvider from '../FirebaseProvider';
+
+const extractKey = ({ inckey }) => inckey
+
 
 export default class MapScreen extends React.Component {
-  state = {
-    mapRegion: null,
-    hasLocationPermissions: false,
-    locationResult: null
+  constructor(props) {
+    super(props)
+
+    this.state = { mapRegion: null, hasLocationPermissions: false, locationResult: null, accidents: [] };
+    this.incRef = FBProvider.getIncidentRef('accidents');
   };
 
-
+  componentWillMount() {
+    this.focusListener = this.props.navigation.addListener("didFocus", () => {
+      this._getMarker();
+    })
+    this._getMarker();
+  }
 
   componentDidMount() {
     this._getMarker();
     this._getLocationAsync();
   }
 
-  componentWillMount() {
-    // this.props.navigation.setParams({ addDetail: this._addDetail });
-    this.focusListener = this.props.navigation.addListener("didFocus", () => {
-      this._getMarker();
-    })
-    this._getMarker();
-  }
+
 
   _handleMapRegionChange = mapRegion => {
     console.log(mapRegion);
@@ -42,18 +46,22 @@ export default class MapScreen extends React.Component {
   };
 
   _getMarker = () => {
-    FBProivder.getIncidentByKey(this.incRef, key).then(data => {
-      var item = {
-        date: data.val().date,
-        title: data.val().title,
-        detail: data.val().detail,
-		image: data.val().image,
-		latitude: date.val().latitude,
-		longitude: data.val().longitude,
-        inckey: key
-      };
-      console.log(item.date);
-      this.setState({ value: item });
+    FBProvider.listenerForIncidents(this.incRef, (snap) => {
+      var items = [];
+      snap.forEach((data) => {
+        items.push({
+          date: data.val().date,
+          title: data.val().title,
+          image: data.val().image,
+          detail: data.val().detail,
+          latitude: data.val().latitude,
+          longitude: data.val().longitude,
+          inckey: data.key
+        });
+      });
+
+      this.setState({ accidents: items });
+      console.log(items)
     });
   }
 
@@ -107,7 +115,14 @@ export default class MapScreen extends React.Component {
                   style={{ alignSelf: 'stretch', height: '100%' }}
                   initialRegion={this.state.mapRegion}
                 >
-
+                  {this.state.accidents.map((marker, index) => (
+                    <MapView.Marker
+                      key={index}
+                      coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
+                      title={marker.title}
+                      description={marker.detail}
+                    />
+                  ))}
                 </MapView>
 
         }
