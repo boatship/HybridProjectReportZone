@@ -41,7 +41,7 @@ class AccidentsItem extends Component {
                 </View>
                 <View style={{ flex:1,flexDirection:'row'}}>
                 <Text style={{ textAlign: 'left',fontSize:12,color:'#B4B4B4' }}>
-                  {moment(date).format("MMM Do YYYY")}
+                  {moment(date).format("Do MMM YYYY")}
                 </Text>
                 </View>
               </View>
