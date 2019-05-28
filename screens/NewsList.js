@@ -13,7 +13,7 @@ import { WebBrowser,Constants, MapView, Location, Permissions,ImagePicker } from
 import { MonoText } from '../components/StyledText';
 import * as firebase from 'firebase';
 import NewsItem from './NewsItem'
-import FBProivder from '../FirebaseProvider';
+import FBProvider from '../FirebaseProvider';
 import uuid from 'uuid';
 
 const extractKey = ({ inckey }) => inckey
@@ -25,7 +25,7 @@ export default class NewsList extends React.Component {
     this.state = { news: [],
       image: null,
       uploading: false, };
-    this.incRef = FBProivder.getIncidentRef('news');
+    this.incRef = FBProvider.getIncidentRef('news');
   };
 
   static navigationOptions = {
@@ -77,7 +77,7 @@ _pickImage = async () => {
   }
 
   _load = () => {
-    FBProivder.listenerForIncidents(this.incRef, (snap) => {
+    FBProvider.listenerForIncidents(this.incRef, (snap) => {
       var items = [];
       snap.forEach((data) => {
         items.push({
@@ -136,8 +136,6 @@ _pickImage = async () => {
 
 //>>>>>>>>>>>>>>>>>>>>>>UploadPicture>>>>>>>>>>>>>>>>>>>>
 async function uploadImageAsync(uri) {
-  // Why are we using XMLHttpRequest? See:
-  // https://github.com/expo/expo/issues/2402#issuecomment-443726662
   const blob = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.onload = function() {

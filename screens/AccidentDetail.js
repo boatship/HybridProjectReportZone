@@ -4,7 +4,7 @@ import { StyleSheet, Button, View, AsyncStorage, Text } from "react-native";
 import moment from "moment";
 import { Image } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
-import FBProivder from "../FirebaseProvider";
+import FBProvider from "../FirebaseProvider";
 
 class AccidentDetail extends Component {
   constructor(props) {
@@ -21,11 +21,11 @@ class AccidentDetail extends Component {
         longitude: ""
       }
     };
-    this.incRef = FBProivder.getIncidentRef("accidents");
+    this.incRef = FBProvider.getIncidentRef("accidents");
   }
 
   _load = key => {
-    FBProivder.getIncidentByKey(this.incRef, key).then(data => {
+    FBProvider.getIncidentByKey(this.incRef, key).then(data => {
       var item = {
         date: data.val().date,
         title: data.val().title,

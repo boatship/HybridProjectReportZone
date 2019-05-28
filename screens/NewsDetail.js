@@ -4,7 +4,7 @@ import { StyleSheet, Button, View, AsyncStorage,Text } from "react-native";
 import moment from "moment";
 import { Image } from 'react-native-elements'
 import { ScrollView } from "react-native-gesture-handler";
-import FBProivder from '../FirebaseProvider';
+import FBProvider from '../FirebaseProvider';
 
 
 let myFormatFunction = (format, date) => {
@@ -24,11 +24,11 @@ class NewsDetail extends Component {
         image: ""
       }
 	};
-	this.incRef = FBProivder.getIncidentRef("news");
+	this.incRef = FBProvider.getIncidentRef("news");
   }
 
   _load = key => {
-    FBProivder.getIncidentByKey(this.incRef, key).then(data => {
+    FBProvider.getIncidentByKey(this.incRef, key).then(data => {
       var item = {
         date: data.val().date,
         title: data.val().title,
@@ -42,7 +42,7 @@ class NewsDetail extends Component {
   };
 
 //    _load = () => {
-//       FBProivder.listenerForIncidents(this.incRef, (snap) => {
+//       FBProvider.listenerForIncidents(this.incRef, (snap) => {
 //         var item = {};
 //         snap.forEach((data) => {
 //           item.push({
