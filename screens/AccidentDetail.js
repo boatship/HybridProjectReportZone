@@ -16,8 +16,9 @@ class AccidentDetail extends Component {
         title: "",
         date: "",
         detail: "",
-        image: ""
-      }
+		image: "",
+		latitude:"",
+		longitude:""}
     };
     this.incRef = FBProivder.getIncidentRef("accidents");
   }
@@ -28,7 +29,9 @@ class AccidentDetail extends Component {
         date: data.val().date,
         title: data.val().title,
         detail: data.val().detail,
-        image: data.val().image,
+		image: data.val().image,
+		latitude: date.val().latitude,
+		longitude: data.val().longitude,
         inckey: key
       };
       console.log(item.date);
