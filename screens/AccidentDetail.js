@@ -30,7 +30,7 @@ class AccidentDetail extends Component {
         title: data.val().title,
         detail: data.val().detail,
 		image: data.val().image,
-		latitude: date.val().latitude,
+		latitude: data.val().latitude,
 		longitude: data.val().longitude,
         inckey: key
       };
