@@ -11,9 +11,7 @@ import {
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import { Constants, MapView, Location, Permissions } from 'expo';
-
 import { MonoText } from '../components/StyledText';
-
 import AccidentsItem from './AccidentsItem'
 import FBProivder from '../FirebaseProvider';
 

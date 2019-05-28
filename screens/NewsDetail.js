@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 
-import { StyleSheet, Button, View, AsyncStorage } from "react-native";
+import { StyleSheet, Button, View, AsyncStorage,Text } from "react-native";
 import moment from "moment";
+import { Image } from 'react-native-elements'
 import { ScrollView } from "react-native-gesture-handler";
+import FBProivder from '../FirebaseProvider';
+
+
+let myFormatFunction = (format, date) => {
+	return moment(date).format(format);
+};
 
 class NewsDetail extends Component {
   constructor(props) {
@@ -10,68 +17,73 @@ class NewsDetail extends Component {
 
     this.state = {
       value: {
-        newkey: new Date().valueOf().toString(),
+        inckey: new Date().valueOf().toString(),
         title: "",
-        date: myFormatFunction("YYYY-MM-DD", new Date()),
+        date: "",
         detail: "",
         image: ""
       }
-    };
-    this.incRef = FBProivder.getIncidentRef("news");
+	};
+	this.incRef = FBProivder.getIncidentRef("news");
   }
 
   _load = key => {
-    FBProvider.getIncidentByKey(this.incRef, key).then(data => {
-      var dtparts = data.val().date.split("-");
-      var tdate = new Date(dtparts[0], dtparts[1] - 1, dtparts[2]);
+    FBProivder.getIncidentByKey(this.incRef, key).then(data => {
       var item = {
-        date: tdate,
+        date: data.val().date,
         title: data.val().title,
         detail: data.val().detail,
         image: data.val().image,
-        newkey: key
+        inckey: key
       };
       console.log(item.date);
       this.setState({ value: item });
     });
   };
 
-  //  _load = () => {
-  //     FBProivder.listenerForIncidents(this.incRef, (snap) => {
-  //       var items = [];
-  //       snap.forEach((data) => {
-  //         items.push({
-  //           date: data.val().date,
-  //           title: data.val().title,
-  //           image: data.val().image,
-  //           detail: data.val().detail,
-  //           inckey: data.key
-  //         });
-  //       });
+//    _load = () => {
+//       FBProivder.listenerForIncidents(this.incRef, (snap) => {
+//         var item = {};
+//         snap.forEach((data) => {
+//           item.push({
+//             date: data.val().date,
+//             title: data.val().title,
+//             image: data.val().image,
+//             detail: data.val().detail,
+//             inckey: data.key
+//           });
+//         });
 
-  //       this.setState({ news: items });
-  //       console.log(items)
-  //     });
-  //   }
+//         this.setState({ value: item });
+//         console.log(item)
+//       });
+//     }
+
 
   componentWillMount() {
     this.props.navigation.setParams({ saveDetail: this._saveDetail });
-    if (this.props.navigation.state.params.newkey == null) {
+    if (this.props.navigation.state.params.inckey == null) {
       console.log("MUDA MUDA MUDA MUDA MUDA !!!!!!!!!");
     } else {
-      key = this.props.navigation.state.params.newkey;
+      key = this.props.navigation.state.params.inckey;
       console.log(key);
       this._load(key);
     }
   }
   render() {
-    return 
-	<View style={styles.container} >
-<ScrollView>
-	{item}
-</ScrollView>
-
-	</View>;
+    let imagename = this.state.value.title
+    return(
+	      <View style={styles.container} >
+          <ScrollView>
+	          <Text>{this.state.value.title}</Text>
+            <Text>{this.state.value.detail}</Text>
+            <Text>{this.state.value.date}</Text>
+            <Image
+              source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/reportzone.appspot.com/o/news%2F' + imagename + '.jpg?alt=media' }}
+              style={{ width: 100, height: 100 }}
+            />
+            </ScrollView>
+	        </View>)
   }
 }
 
