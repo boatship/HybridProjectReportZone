@@ -20,24 +20,35 @@ class AccidentsItem extends Component {
         onPress={this.props.onPress}
         underlayColor="white">
         <View style={styles.row}>
-          <View style={{ flex: 2 }}>
+        <View style={styles.column}>
+
+          <View style={{ flex: 1 }}>
             <Image
               source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/reportzone.appspot.com/o/accidents%2F' + title + '.jpg?alt=media' }}
-              style={{ width: 50, height: 50 }}
+              style={{ width: 100, height: 100, borderRadius: 5,margin:'auto' }}
               PlaceholderContent={<ActivityIndicator />}
             />
           </View>
-          <View style={{ flex: 3 }}>
-            <Text >
-              {title}
-            </Text>
+
           </View>
-          <View style={{ flex: 1 }}>
-            <Text style={{ textAlign: 'right' }}>
-              {date}
-            </Text>
+          <View style={{flex: 3,flexDirection: 'column'}}>
+            <View style={styles.rowNoB}>
+              <View style={{ flex:3,flexDirection:'column',padding: 15,paddingBottom:0 }}>
+              <View style={{ flex:2,flexDirection:'row',paddingBottom:5}}>
+                <Text numberOfLines={2} style={{ textAlign: 'left', fontWeight: '400' }}>
+                  {title}
+                </Text>
+                </View>
+                <View style={{ flex:1,flexDirection:'row'}}>
+                <Text style={{ textAlign: 'left',fontSize:12,color:'#B4B4B4' }}>
+                  {moment(date).format("MMM Do YYYY")}
+                </Text>
+                </View>
+              </View>
+            </View>
+
           </View>
-        </View>
+          </View>
       </TouchableHighlight>
     );
   }
@@ -48,9 +59,19 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     padding: 15,
-    marginBottom: 5,
-    borderWidth: 1,
-    borderColor: '#DDDDDD'
+    borderWidth: 0.5,
+    borderTopWidth: 0,
+    borderColor: '#D8D8D8'
+  },
+  rowNoB: {
+    flex: 1,
+    flexDirection: 'row',
+    padding: 15,
+  },
+  column: {
+    flex: 1,
+    flexDirection: 'column',
+
   },
 });
 

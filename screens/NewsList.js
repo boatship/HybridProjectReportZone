@@ -114,10 +114,7 @@ _pickImage = async () => {
     return (
     //<Button title="Choose image..." onPress={this.onChooseImagePress} />
       <View style={styles.container}>
-        <Button
-          onPress={this._pickImage}
-          title="Pick an image from camera roll"
-        />
+        
         <ScrollView>
           <FlatList
             style={styles.container}

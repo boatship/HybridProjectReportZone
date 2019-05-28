@@ -175,6 +175,7 @@ export default class MapScreen extends React.Component {
                   ref={map => this.map = map}
                   style={{ alignSelf: 'stretch', height: '100%' }}
                   initialRegion={this.state.mapRegion}
+
                   showsUserLocation={true}
                 >
                   {this.state.accidents.map((marker, index) => {
@@ -185,9 +186,11 @@ export default class MapScreen extends React.Component {
                         },
                       ],
                     };
+                    console.log(scaleStyle )
                     const opacityStyle = {
                       opacity: interpolations[index].opacity,
                     };
+                    console.log(opacityStyle )
                     return (
 
                       <MapView.Marker
@@ -196,10 +199,10 @@ export default class MapScreen extends React.Component {
                         title={marker.title}
                         description={marker.detail}
                       >
-                        <Animated.View style={[styles.markerWrap, opacityStyle]}>
+                        {/* <Animated.View style={[styles.markerWrap, opacityStyle]}>
                           <Animated.View style={[styles.ring, scaleStyle]} />
                           <View style={styles.marker} />
-                        </Animated.View>
+                        </Animated.View> */}
                       </MapView.Marker>
                     )
                   })}

@@ -6,6 +6,7 @@ import { Image, Header } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
 import FBProvider from "../FirebaseProvider";
 
+
 class AccidentDetail extends Component {
   constructor(props) {
     super(props);
@@ -24,9 +25,6 @@ class AccidentDetail extends Component {
     this.incRef = FBProvider.getIncidentRef("accidents");
   }
 
-  static navigationOptions = {
-    header: null
-  };
 
   _load = key => {
     FBProvider.getIncidentByKey(this.incRef, key).then(data => {
@@ -59,29 +57,7 @@ class AccidentDetail extends Component {
     let imagename = this.state.value.title;
     return (
       <View style={styles.container}>
-        <Header
-          placement="center"
-          backgroundColor="white"
-          centerComponent={
-            <Image
-              style={{
-                marginLeft: "auto",
-                marginRight: "auto",
-                alignContent: "center",
-                width: 180,
-                height: 40
-              }}
-              source={require("../static/large_reportzone.png")}
-            />
-          }
-          containerStyle={{
-            elevation: 4,
-            shadowOffset: { width: 5, height: 5 },
-            shadowColor: "grey",
-            shadowOpacity: 0.5,
-            shadowRadius: 10
-          }}
-        />
+
         <ScrollView>
           <View
             style={{
@@ -104,7 +80,7 @@ class AccidentDetail extends Component {
               style={{ width: 270, height: 250, marginTop: 5 }}
             />
             <Text style={{ textAlign: "left", marginTop: 5 }}>
-              {this.state.value.date}
+              {moment(this.state.value.date).format("MMM Do YYYY")}
             </Text>
             <Text style={styles.infoTypeLabel}>{this.state.value.detail}</Text>
           </View>
@@ -122,7 +98,8 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 22,
     textAlign: "center",
-    paddingTop: 20
+    paddingTop: 20,
+    fontWeight: "400",
   },
   infoTypeLabel: {
     fontSize: 15,
