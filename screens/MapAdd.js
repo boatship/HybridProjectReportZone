@@ -93,6 +93,7 @@ export default class MapAdd extends React.Component {
                   style={{ alignSelf: 'stretch', height: '100%', zIndex: 100 }}
                   initialRegion={this.state.mapRegion}
                   // onRegionChange={this._handleMapRegionChange.bind(this)}
+                  showsUserLocation={true}
                   onRegionChangeComplete={this._handleMapRegionChange.bind(this)}
                 >
 
@@ -113,11 +114,6 @@ export default class MapAdd extends React.Component {
       </View>
     );
   }
-
-
-
-
-
 
 }
 
