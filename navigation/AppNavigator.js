@@ -48,7 +48,7 @@ const HubStacking = createStackNavigator({
   Hub: { screen: Hub, navigationOptions: { header: null } },
   AccidentsDetail: {screen: AccidentsDetail, navigationOptions: {
 
-        headerCenter: (
+        headerCenter : (
           <Image
           style={{
             marginLeft: "auto",

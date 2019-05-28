@@ -137,10 +137,8 @@ class AddAccident extends Component {
         inckey: new Date().valueOf().toString(),
         date: myFormatFunction("YYYY-MM-DD", new Date()),
         detail: "",
-        image: "",
         latitude: latitude,
         longitude: longitude,
-        title: ""
       }
     });
   };
@@ -176,7 +174,7 @@ class AddAccident extends Component {
     try {
       this.setState({ uploading: true });
       if (!pickerResult.cancelled) {
-        var namepic = this.state.image
+        var namepic = this.state.picname
         console.log("Testttttttttt--------------"+namepic)
         uploadUrl = await uploadImageAsync(pickerResult.uri,namepic);
         this.setState({ image: uploadUrl });
@@ -225,10 +223,11 @@ async function uploadImageAsync(uri,tname) {
     xhr.send(null);
   });
   var rname = tname
+  console.log(rname,tname)
   const ref = firebase
     .storage()
     .ref()
-    .child("news/" + rname);
+    .child("accitents/" + rname);
   const snapshot = await ref.put(blob);
 
   // We're done with the blob, close and release it
