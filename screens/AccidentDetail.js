@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { StyleSheet, Button, View, AsyncStorage, Text } from "react-native";
 import moment from "moment";
-import { Image } from "react-native-elements";
+import { Image, Header } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
 import FBProvider from "../FirebaseProvider";
 
@@ -24,15 +24,19 @@ class AccidentDetail extends Component {
     this.incRef = FBProvider.getIncidentRef("accidents");
   }
 
+  static navigationOptions = {
+    header: null
+  };
+
   _load = key => {
     FBProvider.getIncidentByKey(this.incRef, key).then(data => {
       var item = {
         date: data.val().date,
         title: data.val().title,
         detail: data.val().detail,
-		image: data.val().image,
-		latitude: data.val().latitude,
-		longitude: data.val().longitude,
+        image: data.val().image,
+        latitude: data.val().latitude,
+        longitude: data.val().longitude,
         inckey: key
       };
       console.log(item.date);
@@ -55,14 +59,55 @@ class AccidentDetail extends Component {
     let imagename = this.state.value.title;
     return (
       <View style={styles.container}>
+        <Header
+          placement="center"
+          backgroundColor="white"
+          centerComponent={
+            <Image
+              style={{
+                marginLeft: "auto",
+                marginRight: "auto",
+                alignContent: "center",
+                width: 180,
+                height: 40
+              }}
+              source={require("../static/large_reportzone.png")}
+            />
+          }
+          containerStyle={{
+            elevation: 4,
+            shadowOffset: { width: 5, height: 5 },
+            shadowColor: "grey",
+            shadowOpacity: 0.5,
+            shadowRadius: 10
+          }}
+        />
         <ScrollView>
-          <Text>{this.state.value.title}</Text>
-          <Text>{this.state.value.detail}</Text>
-          <Text>{this.state.value.date}</Text>
-          <Image
-            source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/reportzone.appspot.com/o/accidents%2F' + imagename + '.jpg?alt=media' }}
-            style={{ width: 100, height: 100 }}
-          />
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "column",
+              marginTop: 20,
+              marginHorizontal: 40,
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <Text style={styles.nameHeader}>{this.state.value.title}</Text>
+            <Image
+              source={{
+                uri:
+                  "https://firebasestorage.googleapis.com/v0/b/reportzone.appspot.com/o/accidents%2F" +
+                  imagename +
+                  ".jpg?alt=media"
+              }}
+              style={{ width: 270, height: 250, marginTop: 5 }}
+            />
+            <Text style={{ textAlign: "left", marginTop: 5 }}>
+              {this.state.value.date}
+            </Text>
+            <Text style={styles.infoTypeLabel}>{this.state.value.detail}</Text>
+          </View>
         </ScrollView>
       </View>
     );
@@ -72,6 +117,19 @@ class AccidentDetail extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  nameHeader: {
+    color: "black",
+    fontSize: 22,
+    textAlign: "center",
+    paddingTop: 20
+  },
+  infoTypeLabel: {
+    fontSize: 15,
+    textAlign: "left",
+    color: "rgba(126,123,138,1)",
+    paddingBottom: 10,
+    marginTop: 5
   }
 });
 
