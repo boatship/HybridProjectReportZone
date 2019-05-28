@@ -43,16 +43,11 @@ import AddAccident from '../screens/AddAccident';
 // });
 
 const HubStacking = createStackNavigator({
-  Hub: Hub,
+  Hub: { screen: Hub, navigationOptions: { header: null } },
   AccidentsDetail: AccidentsDetail,
   NewsDetail: NewsDetail,
 },
-  {
-    headerMode: 'none',
-    navigationOptions: {
-      headerVisible: false,
-    }
-  });
+);
 
 const MapAddStacking = createStackNavigator({
   MapAdd: { screen: MapAdd, navigationOptions: { header: null } },

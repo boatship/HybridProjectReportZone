@@ -21,16 +21,41 @@ export default class MapScreen extends React.Component {
     locationResult: null
   };
 
-  
+
 
   componentDidMount() {
+    this._getMarker();
     this._getLocationAsync();
+  }
+
+  componentWillMount() {
+    // this.props.navigation.setParams({ addDetail: this._addDetail });
+    this.focusListener = this.props.navigation.addListener("didFocus", () => {
+      this._getMarker();
+    })
+    this._getMarker();
   }
 
   _handleMapRegionChange = mapRegion => {
     console.log(mapRegion);
     this.setState({ mapRegion });
   };
+
+  _getMarker = () => {
+    FBProivder.getIncidentByKey(this.incRef, key).then(data => {
+      var item = {
+        date: data.val().date,
+        title: data.val().title,
+        detail: data.val().detail,
+		image: data.val().image,
+		latitude: date.val().latitude,
+		longitude: data.val().longitude,
+        inckey: key
+      };
+      console.log(item.date);
+      this.setState({ value: item });
+    });
+  }
 
   _getLocationAsync = async () => {
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -51,6 +76,7 @@ export default class MapScreen extends React.Component {
 
   componentWillUnmount() {
     this._getLocationAsync.remove();
+    this.focusListener.remove();
   }
 
   render() {
@@ -60,7 +86,7 @@ export default class MapScreen extends React.Component {
           placement="center"
           backgroundColor="white"
 
-          centerComponent={<Image style={{marginLeft:'auto',marginRight:'auto',alignContent: 'center',width:180,height:40}} source={require('../static/large_reportzone.png')}></Image>}
+          centerComponent={<Image style={{ marginLeft: 'auto', marginRight: 'auto', alignContent: 'center', width: 180, height: 40 }} source={require('../static/large_reportzone.png')}></Image>}
 
           containerStyle={{
             elevation: 4,
@@ -80,18 +106,8 @@ export default class MapScreen extends React.Component {
                 <MapView
                   style={{ alignSelf: 'stretch', height: '100%' }}
                   initialRegion={this.state.mapRegion}
-
                 >
-                  <MapView.Marker
-                    coordinate={this.state.location.coords}
-                    title="My Marker"
-                    description="Some description"
-                  />
-                  <MapView.Marker
-                    coordinate={{ latitude: 13.647312, longitude: 100.503083 }}
-                    title="My Marker"
-                    description="Some description"
-                  />
+
                 </MapView>
 
         }
@@ -115,3 +131,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+{/* <MapView.Marker
+  coordinate={this.state.location.coords}
+  title="My Marker"
+  description="Some description"
+/>
+  <MapView.Marker
+    coordinate={{ latitude: 13.647312, longitude: 100.503083 }}
+    title="My Marker"
+    description="Some description"
+  /> */}

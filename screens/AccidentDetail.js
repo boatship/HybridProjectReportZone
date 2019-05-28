@@ -16,9 +16,10 @@ class AccidentDetail extends Component {
         title: "",
         date: "",
         detail: "",
-		image: "",
-		latitude:"",
-		longitude:""}
+        image: "",
+        latitude: "",
+        longitude: ""
+      }
     };
     this.incRef = FBProivder.getIncidentRef("accidents");
   }
@@ -29,9 +30,9 @@ class AccidentDetail extends Component {
         date: data.val().date,
         title: data.val().title,
         detail: data.val().detail,
-		image: data.val().image,
-		latitude: date.val().latitude,
-		longitude: data.val().longitude,
+        image: data.val().image,
+        latitude: date.val().latitude,
+        longitude: data.val().longitude,
         inckey: key
       };
       console.log(item.date);
@@ -59,7 +60,7 @@ class AccidentDetail extends Component {
           <Text>{this.state.value.detail}</Text>
           <Text>{this.state.value.date}</Text>
           <Image
-            source={{uri:'https://firebasestorage.googleapis.com/v0/b/reportzone.appspot.com/o/accidents%2F' + imagename + '.jpg?alt=media'}}
+            source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/reportzone.appspot.com/o/accidents%2F' + imagename + '.jpg?alt=media' }}
             style={{ width: 100, height: 100 }}
           />
         </ScrollView>
