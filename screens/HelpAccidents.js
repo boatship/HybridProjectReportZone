@@ -23,11 +23,27 @@ class HelpAccidents extends Component {
                 <ScrollView>
                     <Image
                         style={{
-                            width: 180,
-                            height: 40,
+                            width: 360,
+                            height: 800,
                             marginLeft: 'auto', marginRight: 'auto'
                         }}
-                        source={require("../static/large_reportzone.png")}
+                        source={require("../static/HelpAccidents/TuNewList4.jpg")}
+                    />
+                    <Image
+                        style={{
+                            width: 360,
+                            height: 800,
+                            marginLeft: 'auto', marginRight: 'auto'
+                        }}
+                        source={require("../static/HelpAccidents/TuAccidentList.jpg")}
+                    />
+                    <Image
+                        style={{
+                            width: 360,
+                            height: 800,
+                            marginLeft: 'auto', marginRight: 'auto'
+                        }}
+                        source={require("../static/HelpAccidents/TuAccidentDetail.jpg")}
                     />
                 </ScrollView>
             </View>

@@ -23,11 +23,51 @@ class HelpAddAccidents extends Component {
                 <ScrollView>
                     <Image
                         style={{
-                            width: 180,
-                            height: 40,
+                            width: 360,
+                            height: 800,
                             marginLeft: 'auto', marginRight: 'auto'
                         }}
-                        source={require("../static/large_reportzone.png")}
+                        source={require("../static/HelpAddAccidents/TuNewList3.jpg")}
+                    />
+                    <Image
+                        style={{
+                            width: 360,
+                            height: 800,
+                            marginLeft: 'auto', marginRight: 'auto'
+                        }}
+                        source={require("../static/HelpAddAccidents/TuReportView1.jpg")}
+                    />
+                    <Image
+                        style={{
+                            width: 360,
+                            height: 800,
+                            marginLeft: 'auto', marginRight: 'auto'
+                        }}
+                        source={require("../static/HelpAddAccidents/TuReportView2.jpg")}
+                    />
+                    <Image
+                        style={{
+                            width: 360,
+                            height: 800,
+                            marginLeft: 'auto', marginRight: 'auto'
+                        }}
+                        source={require("../static/HelpAddAccidents/TuReportForm.jpg")}
+                    />
+                    <Image
+                        style={{
+                            width: 360,
+                            height: 800,
+                            marginLeft: 'auto', marginRight: 'auto'
+                        }}
+                        source={require("../static/HelpAddAccidents/TuPicLibraly.jpg")}
+                    />
+                    <Image
+                        style={{
+                            width: 360,
+                            height: 800,
+                            marginLeft: 'auto', marginRight: 'auto'
+                        }}
+                        source={require("../static/HelpAddAccidents/TuPicLibraly2.jpg")}
                     />
                 </ScrollView>
             </View>

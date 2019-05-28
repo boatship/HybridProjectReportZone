@@ -21,13 +21,21 @@ class HelpNews extends Component {
         return (
             <View>
                 <ScrollView>
-                    <Image
+                <Image
                         style={{
-                            width: 180,
-                            height: 40,
+                            width: 360,
+                            height: 800,
                             marginLeft: 'auto', marginRight: 'auto'
                         }}
-                        source={require("../static/large_reportzone.png")}
+                        source={require("../static/HelpNews/TuNewList.jpg")}
+                    />
+                    <Image
+                        style={{
+                            width: 360,
+                            height: 800,
+                            marginLeft: 'auto', marginRight: 'auto'
+                        }}
+                        source={require("../static/HelpNews/TuNewDetail.jpg")}
                     />
                 </ScrollView>
             </View>
