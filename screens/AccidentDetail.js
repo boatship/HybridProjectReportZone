@@ -90,7 +90,7 @@ class AccidentDetail extends Component {
                 uri:
                   "https://firebasestorage.googleapis.com/v0/b/reportzone.appspot.com/o/accidents%2F" +
                   imagename +
-                  ".jpg?alt=media"
+                  "?alt=media"
               }}
               style={{ width: 270, height: 250, marginTop: 5 }}
             />

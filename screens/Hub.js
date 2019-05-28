@@ -32,7 +32,7 @@ const TabScreen = createMaterialTopTabNavigator(
     swipeEnabled: true,
     animationEnabled: true,
     tabBarOptions: {
-      activeTintColor: "#45B4FF",
+      activeTintColor: "#D65D5D",
       inactiveTintColor: "#909090",
       style: {
         backgroundColor: "#FFFFFF"
@@ -41,7 +41,7 @@ const TabScreen = createMaterialTopTabNavigator(
         textAlign: "center"
       },
       indicatorStyle: {
-        borderBottomColor: "#45B4FF",
+        borderBottomColor: "#D65D5D",
         borderBottomWidth: 2
       }
     }

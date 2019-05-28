@@ -24,7 +24,7 @@ class AccidentsItem extends Component {
 
           <View style={{ flex: 1 }}>
             <Image
-              source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/reportzone.appspot.com/o/accidents%2F' + title + '.jpg?alt=media' }}
+              source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/reportzone.appspot.com/o/accidents%2F' + title + '?alt=media' }}
               style={{ width: 100, height: 100, borderRadius: 5,margin:'auto' }}
               PlaceholderContent={<ActivityIndicator />}
             />

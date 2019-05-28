@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Animated,
   Text,
+  Image,
   TouchableOpacity,
   Dimensions,
   View,
@@ -17,7 +18,7 @@ import { Constants, MapView, Location, Permissions } from 'expo';
 import { MonoText } from '../components/StyledText';
 import FBProvider from '../FirebaseProvider';
 
-import { Image } from 'react-native-elements';
+// import { Image } from 'react-native-elements';
 import { ActivityIndicator } from 'react-native';
 
 const extractKey = ({ inckey }) => inckey
@@ -197,7 +198,6 @@ export default class MapScreen extends React.Component {
                         key={index}
                         coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
                         title={marker.title}
-                        description={marker.detail}
                       >
                         {/* <Animated.View style={[styles.markerWrap, opacityStyle]}>
                           <Animated.View style={[styles.ring, scaleStyle]} />
@@ -235,7 +235,7 @@ export default class MapScreen extends React.Component {
           {this.state.accidents.map((marker, index) => (
             <View style={styles.card} key={index}>
               <Image
-                source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/reportzone.appspot.com/o/accidents%2F' + marker.title + '.jpg?alt=media' }}
+                source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/reportzone.appspot.com/o/accidents%2F' + marker.title + '?alt=media' }}
                 style={styles.cardImage}
                 resizeMode="cover"
                 PlaceholderContent={<ActivityIndicator />}
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     position: "absolute",
-    bottom: 30,
+    bottom: 3,
     left: 0,
     right: 0,
     paddingVertical: 10,

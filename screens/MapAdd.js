@@ -27,12 +27,12 @@ export default class MapAdd extends React.Component {
   };
 
 
-  componentWillMount(){
+  componentWillMount() {
     this.props.navigation.setParams({ addAccident: this._addAccident });
   }
 
   _addAccident = () => {
-    this.props.navigation.navigate("AddAccident", {coordinate: this.state.mapRegion});
+    this.props.navigation.navigate("AddAccident", { coordinate: this.state.myMarker });
   }
 
   componentDidMount() {
@@ -73,7 +73,6 @@ export default class MapAdd extends React.Component {
           backgroundColor="white"
 
           centerComponent={<Image style={{ marginLeft: 'auto', marginRight: 'auto', alignContent: 'center', width: 180, height: 40 }} source={require('../static/large_reportzone.png')}></Image>}
-          rightComponent={<Button title="Report" onPress={this.props.navigation.getParam('addAccident')} />}
           containerStyle={{
             elevation: 4,
             shadowOffset: { width: 5, height: 5 },
@@ -109,8 +108,9 @@ export default class MapAdd extends React.Component {
 
         }
 
-
-
+        <View style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 101 }}>
+          <Button color="#D65D5D" title="Report" onPress={this.props.navigation.getParam('addAccident')} />
+        </View>
       </View>
     );
   }

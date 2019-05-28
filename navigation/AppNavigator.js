@@ -64,7 +64,7 @@ const TabNavigator = createBottomTabNavigator(
     MAP: {
       screen: MapScreen
     },
-    SETTINGS: {
+    REPORT: {
       screen: MapAddStacking
     },
   },
@@ -78,8 +78,8 @@ const TabNavigator = createBottomTabNavigator(
           iconName = `md-compass`;
         } else if (routeName === 'NEWS') {
           iconName = `md-heart`;
-        } else if (routeName === 'SETTINGS') {
-          iconName = `md-time`;
+        } else if (routeName === 'REPORT') {
+          iconName = `md-alert`;
         }
 
         // You can return any component that you like here!
@@ -87,7 +87,7 @@ const TabNavigator = createBottomTabNavigator(
       },
     }),
     tabBarOptions: {
-      activeTintColor: '#45B4FF',
+      activeTintColor: '#D65D5D',
       inactiveTintColor: '#909090',
     },
   }

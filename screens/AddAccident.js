@@ -39,7 +39,7 @@ const formStyles = {
   },
   controlLabel: {
     normal: {
-      color: "blue",
+      color: "#D65D5D",
       fontSize: 18,
       marginBottom: 7,
       fontWeight: "600"
@@ -201,6 +201,7 @@ class AddAccident extends Component {
         />
         <Button
           onPress={this._pickImage}
+          color='#D65D5D'
           title="Upload image from camera roll"
         />
       </View>
@@ -227,7 +228,7 @@ async function uploadImageAsync(uri,tname) {
   const ref = firebase
     .storage()
     .ref()
-    .child("accitents/" + rname);
+    .child("accidents/" + rname);
   const snapshot = await ref.put(blob);
 
   // We're done with the blob, close and release it
@@ -238,7 +239,8 @@ async function uploadImageAsync(uri,tname) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    padding:15
   }
 });
 
