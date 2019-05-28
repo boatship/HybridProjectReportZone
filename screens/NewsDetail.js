@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 
-import { StyleSheet, Button, View, AsyncStorage,Text } from "react-native";
+import { StyleSheet, Button, View, AsyncStorage, Text } from "react-native";
 import moment from "moment";
-import { Image } from 'react-native-elements'
+import { Image, Header, ListItem } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
-import FBProvider from '../FirebaseProvider';
-
+import FBProvider from "../FirebaseProvider";
 
 let myFormatFunction = (format, date) => {
-	return moment(date).format(format);
+  return moment(date).format(format);
 };
 
 class NewsDetail extends Component {
@@ -23,9 +22,12 @@ class NewsDetail extends Component {
         detail: "",
         image: ""
       }
-	};
-	this.incRef = FBProvider.getIncidentRef("news");
+    };
+    this.incRef = FBProvider.getIncidentRef("news");
   }
+  static navigationOptions = {
+    header: null
+  };
 
   _load = key => {
     FBProvider.getIncidentByKey(this.incRef, key).then(data => {
@@ -41,24 +43,23 @@ class NewsDetail extends Component {
     });
   };
 
-//    _load = () => {
-//       FBProvider.listenerForIncidents(this.incRef, (snap) => {
-//         var item = {};
-//         snap.forEach((data) => {
-//           item.push({
-//             date: data.val().date,
-//             title: data.val().title,
-//             image: data.val().image,
-//             detail: data.val().detail,
-//             inckey: data.key
-//           });
-//         });
+  //    _load = () => {
+  //       FBProvider.listenerForIncidents(this.incRef, (snap) => {
+  //         var item = {};
+  //         snap.forEach((data) => {
+  //           item.push({
+  //             date: data.val().date,
+  //             title: data.val().title,
+  //             image: data.val().image,
+  //             detail: data.val().detail,
+  //             inckey: data.key
+  //           });
+  //         });
 
-//         this.setState({ value: item });
-//         console.log(item)
-//       });
-//     }
-
+  //         this.setState({ value: item });
+  //         console.log(item)
+  //       });
+  //     }
 
   componentWillMount() {
     this.props.navigation.setParams({ saveDetail: this._saveDetail });
@@ -71,25 +72,69 @@ class NewsDetail extends Component {
     }
   }
   render() {
-    let imagename = this.state.value.title
-    return(
-	      <View style={styles.container} >
-          <ScrollView>
-	          <Text>{this.state.value.title}</Text>
-            <Text>{this.state.value.detail}</Text>
-            <Text>{this.state.value.date}</Text>
+    let imagename = this.state.value.title;
+    return (
+      <View style={styles.container}>
+         <Header
+          placement="center"
+          backgroundColor="white"
+
+          centerComponent={<Image style={{ marginLeft: 'auto', marginRight: 'auto', alignContent: 'center', width: 180, height: 40 }} source={require('../static/large_reportzone.png')}></Image>}
+
+          containerStyle={{
+            elevation: 4,
+            shadowOffset: { width: 5, height: 5 },
+            shadowColor: "grey",
+            shadowOpacity: 0.5,
+            shadowRadius: 10
+          }}
+        />
+        <ScrollView>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "column",
+              marginTop: 20,
+              marginHorizontal: 40,
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <Text style={styles.nameHeader}>{this.state.value.title}</Text>
             <Image
-              source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/reportzone.appspot.com/o/news%2F' + imagename + '.jpg?alt=media' }}
-              style={{ width: 100, height: 100 }}
+              source={{
+                uri:
+                  "https://firebasestorage.googleapis.com/v0/b/reportzone.appspot.com/o/news%2F" +
+                  imagename +
+                  ".jpg?alt=media"
+              }}
+              style={{ width: 270, height: 250,marginTop: 5 }}
             />
-            </ScrollView>
-	        </View>)
+            <Text style={{textAlign: 'left',marginTop: 5,}}>{this.state.value.date}</Text>
+            <Text style={styles.infoTypeLabel}>{this.state.value.detail}</Text>
+          </View>
+        </ScrollView>
+      </View>
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  nameHeader: {
+    color: "black",
+    fontSize: 22,
+    textAlign: "center",
+    paddingTop: 20
+  },
+  infoTypeLabel: {
+    fontSize: 15,
+    textAlign: "left",
+    color: "rgba(126,123,138,1)",
+    paddingBottom: 10,
+    marginTop: 5
   }
 });
 
