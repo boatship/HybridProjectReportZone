@@ -9,6 +9,11 @@ import MapAdd from '../screens/MapAdd';
 import AccidentsDetail from '../screens/AccidentDetail';
 import NewsDetail from '../screens/NewsDetail';
 import AddAccident from '../screens/AddAccident';
+import HelpNews from '../screens/HelpNews';
+import HelpAccidents from '../screens/HelpAccidents';
+import HelpAddAccidents from '../screens/HelpAddAccidents';
+import HelpMapScreen from '../screens/HelpMapScreen';
+import Help from '../screens/Help';
 
 // const AppNavigator = createStackNavigator(
 //   {
@@ -55,6 +60,15 @@ const MapAddStacking = createStackNavigator({
 },
 );
 
+const HelpStacking = createStackNavigator({
+  Help: Help,
+  HelpNews: HelpNews,
+  HelpAccidents: HelpAccidents,
+  HelpAddAccidents: HelpAddAccidents,
+  HelpMapScreen: HelpMapScreen,
+},
+);
+
 const TabNavigator = createBottomTabNavigator(
   {
 
@@ -66,6 +80,9 @@ const TabNavigator = createBottomTabNavigator(
     },
     REPORT: {
       screen: MapAddStacking
+    },
+    HELP: {
+      screen: HelpStacking
     },
   },
   {
@@ -80,6 +97,8 @@ const TabNavigator = createBottomTabNavigator(
           iconName = `md-heart`;
         } else if (routeName === 'REPORT') {
           iconName = `md-alert`;
+        } else if (routeName === 'HELP') {
+          iconName = `md-help`;
         }
 
         // You can return any component that you like here!
